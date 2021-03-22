@@ -21,6 +21,45 @@ mod tests {
     //     }
 
     #[test]
+    fn test_tap_status() {
+        parses_to! {
+            parser: TapParser,
+            input: "ok ",
+            rule: Rule::status,
+            tokens: [
+                status(0,3)
+            ]
+        };
+
+        parses_to! {
+            parser: TapParser,
+            input: "not ok ",
+            rule: Rule::status,
+            tokens: [
+                status(0,7)
+            ]
+        };
+
+        fails_with! {
+            parser: TapParser,
+            input: " not ok",
+            rule: Rule::status,
+            positives: vec![Rule::status],
+            negatives: vec![],
+            pos: 0
+        };
+
+        fails_with! {
+            parser: TapParser,
+            input: " ok",
+            rule: Rule::status,
+            positives: vec![Rule::status],
+            negatives: vec![],
+            pos: 0
+        };
+    }
+
+    #[test]
     fn test_tap_desc_text() {
         parses_to! {
             parser: TapParser,

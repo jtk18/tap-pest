@@ -21,6 +21,36 @@ mod tests {
     //     }
 
     #[test]
+    fn test_tap_desc_text() {
+        parses_to! {
+            parser: TapParser,
+            input: "And there was some text",
+            rule: Rule::desc_text,
+            tokens: [
+                desc_text(0,23)
+            ]
+        };
+
+        fails_with! {
+            parser: TapParser,
+            input: "\n# TODO with stuff after",
+            rule: Rule::desc_text,
+            positives: vec![Rule::desc_text],
+            negatives: vec![],
+            pos: 0
+        };
+
+        fails_with! {
+            parser: TapParser,
+            input: "# TODO with stuff after",
+            rule: Rule::desc_text,
+            positives: vec![Rule::desc_text],
+            negatives: vec![],
+            pos: 0
+        };
+    }
+
+    #[test]
     fn test_tap_todo_directive() {
         parses_to! {
             parser: TapParser,
@@ -168,7 +198,7 @@ mod tests {
 
         fails_with! {
             parser: TapParser,
-            input: "\n",
+            input: "\nasdfasfaf",
             rule: Rule::text_output,
             positives: vec![Rule::text_output],
             negatives: vec![],

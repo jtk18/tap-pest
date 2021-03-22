@@ -7,9 +7,8 @@ trailing_plan = { plan ~ NEWLINE }
 plan = { "1.." ~ positiveInteger }
 lines = { line+ }
 line = { comment | test | unknown | bailout ~ NEWLINE }
-test = { status ~ positiveInteger? ~ description? ~ directive? }
+test = { status ~ positiveInteger? ~ desc_text? ~ directive? }
 status = { "not "? ~ "ok " }
-description = { !"#" ~ non_newline ~ (!"#" ~ non_newline)+? }
 directive = _{ todo_directive | skip_directive }
 todo_directive = { hash ~ "TODO" ~ " " ~ text_output? }
 skip_directive = { hash ~ "SKIP" ~ " " ~ text_output? }
@@ -17,8 +16,9 @@ comment = { hash ~ text_output? }
 hash = _{ "#" ~ " "? }
 bailout = { "Bail out!" ~ text_output? }
 unknown = { text_output ~ NEWLINE }
-non_newline = _{ (!NEWLINE ~ ANY) }
 text_output = { (!NEWLINE ~ ANY)+ }
+desc_text = { ( !NEWLINE ~ !hash_char ~ ANY)+ }
+hash_char = _{ "#" }
 positiveInteger = { ASCII_NONZERO_DIGIT ~ (ASCII_DIGIT+)? }
 
 // https://github.com/Perl-Toolchain-Gang/Test-Harness/blob/94e8ba4c942a0f4e4eb0a483a8a8c3ee9bd9ff61/lib/TAP/Parser/Grammar.pm#L499

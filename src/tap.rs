@@ -20,38 +20,38 @@ mod tests {
     //         println!("{:#?}", out);
     //     }
 
-//     #[test]
-//     fn test_lines() {
+    //     #[test]
+    //     fn test_lines() {
 
-//         let lines = r#"ok 2 some text goes here #TODO finish
-// some unknown for you
-// Bailout! stuff
-// ok 3"#;
+    //         let lines = r#"ok 2 some text goes here #TODO finish
+    // some unknown for you
+    // Bailout! stuff
+    // ok 3"#;
 
-//         parses_to! {
-//             parser: TapParser,
-//             input: lines,
-//             rule: Rule::lines,
-//             tokens: [
-//                 lines(0,78,[
-//                     test(0,37,[
-//                         status(0,3),
-//                         positiveInteger(3,4),
-//                         desc_text(4,25),
-//                         todo_directive(25,37,[
-//                             text_output(31,37)
-//                         ])
-//                     ]),
-//                     unknown(37,58),
-//                     bailout(59,73),
-//                     test(74,78,[
-//                         status(74,76),
-//                         positiveInteger(76,78)
-//                     ])
-//                 ])
-//             ]
-//         };
-//     }
+    //         parses_to! {
+    //             parser: TapParser,
+    //             input: lines,
+    //             rule: Rule::lines,
+    //             tokens: [
+    //                 lines(0,78,[
+    //                     test(0,37,[
+    //                         status(0,3),
+    //                         positiveInteger(3,4),
+    //                         desc_text(4,25),
+    //                         todo_directive(25,37,[
+    //                             text_output(31,37)
+    //                         ])
+    //                     ]),
+    //                     unknown(37,58),
+    //                     bailout(59,73),
+    //                     test(74,78,[
+    //                         status(74,76),
+    //                         positiveInteger(76,78)
+    //                     ])
+    //                 ])
+    //             ]
+    //         };
+    //     }
 
     #[test]
     fn test_tap_test() {

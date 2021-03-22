@@ -5,7 +5,7 @@ pub struct TapParser;
 #[cfg(test)]
 mod tests {
     use super::*;
-    use pest::{consumes_to, parses_to};
+    use pest::{consumes_to, fails_with, parses_to};
 
 
 //     #[test]
@@ -40,6 +40,33 @@ mod tests {
                 positiveInteger(0, 3)
             ]
         };
+
+        parses_to! {
+            parser: TapParser,
+            input: "120",
+            rule: Rule::positiveInteger,
+            tokens: [
+                positiveInteger(0, 3)
+            ]
+        };
+
+        fails_with! {
+            parser: TapParser,
+            input: "0",
+            rule: Rule::positiveInteger,
+            positives: vec![Rule::positiveInteger],
+            negatives: vec![],
+            pos: 0
+        };
+
+        fails_with! {
+            parser: TapParser,
+            input: "-11",
+            rule: Rule::positiveInteger,
+            positives: vec![Rule::positiveInteger],
+            negatives: vec![],
+            pos: 0
+        };
     }
 
     #[test]
@@ -53,6 +80,15 @@ mod tests {
                     positiveInteger(3, 4)
                 ])
             ]
+        };
+
+        fails_with! {
+            parser: TapParser,
+            input: "0..4",
+            rule: Rule::plan,
+            positives: vec![Rule::plan],
+            negatives: vec![],
+            pos: 0
         };
     }
 }

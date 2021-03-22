@@ -21,6 +21,29 @@ mod tests {
     //     }
 
     #[test]
+    fn test_tap_bailout() {
+        parses_to! {
+            parser: TapParser,
+            input: "Bail out! HERE IS WHY!",
+            rule: Rule::bailout,
+            tokens: [
+                bailout(0, 22, [
+                    text_output(9, 22)
+                ])
+            ]
+        };
+
+        parses_to! {
+            parser: TapParser,
+            input: "Bail out!",
+            rule: Rule::bailout,
+            tokens: [
+                bailout(0, 9)
+            ]
+        };
+    }
+
+    #[test]
     fn test_tap_unknown() {
         parses_to! {
             parser: TapParser,

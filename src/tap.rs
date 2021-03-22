@@ -21,6 +21,29 @@ mod tests {
     //     }
 
     #[test]
+    fn test_tap_skip_directive() {
+        parses_to! {
+            parser: TapParser,
+            input: "#SKIP ",
+            rule: Rule::skip_directive,
+            tokens: [
+                skip_directive(0,6)
+            ]
+        };
+
+        parses_to! {
+            parser: TapParser,
+            input: "# SKIP with stuff after",
+            rule: Rule::skip_directive,
+            tokens: [
+                skip_directive(0,23,[
+                    text_output(7,23)
+                ])
+            ]
+        };
+    }
+
+    #[test]
     fn test_tap_comment() {
         parses_to! {
             parser: TapParser,

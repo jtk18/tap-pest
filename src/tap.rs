@@ -21,6 +21,61 @@ mod tests {
     //     }
 
     #[test]
+    fn test_tap_test() {
+        parses_to! {
+            parser: TapParser,
+            input: "ok ",
+            rule: Rule::test,
+            tokens: [
+                test(0,3,[
+                    status(0,3)
+                ])
+            ]
+        };
+
+        parses_to! {
+            parser: TapParser,
+            input: "ok 2",
+            rule: Rule::test,
+            tokens: [
+                test(0,4,[
+                    status(0,3),
+                    positiveInteger(3,4)
+                ])
+            ]
+        };
+
+        parses_to! {
+            parser: TapParser,
+            input: "ok 2 some text goes here",
+            rule: Rule::test,
+            tokens: [
+                test(0,24,[
+                    status(0,3),
+                    positiveInteger(3,4),
+                    desc_text(4,24)
+                ])
+            ]
+        };
+
+        parses_to! {
+            parser: TapParser,
+            input: "ok 2 some text goes here #TODO finish",
+            rule: Rule::test,
+            tokens: [
+                test(0,37,[
+                    status(0,3),
+                    positiveInteger(3,4),
+                    desc_text(4,25),
+                    todo_directive(25,37,[
+                        text_output(31,37)
+                    ])
+                ])
+            ]
+        };
+    }
+
+    #[test]
     fn test_tap_status() {
         parses_to! {
             parser: TapParser,

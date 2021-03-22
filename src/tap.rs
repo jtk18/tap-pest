@@ -21,6 +21,49 @@ mod tests {
     //     }
 
     #[test]
+    fn test_tap_comment() {
+        parses_to! {
+            parser: TapParser,
+            input: "#",
+            rule: Rule::comment,
+            tokens: [
+                comment(0,1)
+            ]
+        };
+
+        parses_to! {
+            parser: TapParser,
+            input: "# ",
+            rule: Rule::comment,
+            tokens: [
+                comment(0,2)
+            ]
+        };
+
+        parses_to! {
+            parser: TapParser,
+            input: "# and some more stuff",
+            rule: Rule::comment,
+            tokens: [
+                comment(0,21,[
+                    text_output(2,21)
+                ])
+            ]
+        };
+
+        parses_to! {
+            parser: TapParser,
+            input: "#this works, too",
+            rule: Rule::comment,
+            tokens: [
+                comment(0,16,[
+                    text_output(1,16)
+                ])
+            ]
+        };
+    }
+
+    #[test]
     fn test_tap_bailout() {
         parses_to! {
             parser: TapParser,

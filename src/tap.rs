@@ -21,6 +21,29 @@ mod tests {
     //     }
 
     #[test]
+    fn test_tap_todo_directive() {
+        parses_to! {
+            parser: TapParser,
+            input: "#TODO ",
+            rule: Rule::todo_directive,
+            tokens: [
+                todo_directive(0,6)
+            ]
+        };
+
+        parses_to! {
+            parser: TapParser,
+            input: "# TODO with stuff after",
+            rule: Rule::todo_directive,
+            tokens: [
+                todo_directive(0,23,[
+                    text_output(7,23)
+                ])
+            ]
+        };
+    }
+
+    #[test]
     fn test_tap_skip_directive() {
         parses_to! {
             parser: TapParser,

@@ -21,30 +21,44 @@ mod tests {
     //     }
 
     #[test]
-    fn test_tap_non_newline() {
+    fn test_tap_unknown() {
+        parses_to! {
+            parser: TapParser,
+            input: "some any\n",
+            rule: Rule::unknown,
+            tokens: [
+                unknown(0, 9, [
+                    text_output(0, 8)
+                ])
+            ]
+        };
+    }
+
+    #[test]
+    fn test_tap_text_output() {
         parses_to! {
             parser: TapParser,
             input: "4",
-            rule: Rule::non_newline,
+            rule: Rule::text_output,
             tokens: [
-                non_newline(0, 1)
+                text_output(0, 1)
             ]
         };
 
         parses_to! {
             parser: TapParser,
-            input: "{",
-            rule: Rule::non_newline,
+            input: "{whole}",
+            rule: Rule::text_output,
             tokens: [
-                non_newline(0, 1)
+                text_output(0, 7)
             ]
         };
 
         fails_with! {
             parser: TapParser,
             input: "\n",
-            rule: Rule::non_newline,
-            positives: vec![Rule::non_newline],
+            rule: Rule::text_output,
+            positives: vec![Rule::text_output],
             negatives: vec![],
             pos: 0
         };

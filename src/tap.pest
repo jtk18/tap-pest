@@ -1,23 +1,24 @@
 
-newline    = _{ "\n" }
+newline    = _{ NEWLINE }
 tap = { ( version? ~ comment | unknown ~ leading_plan ~ lines ) | lines ~ trailing_plan ~ comment? }
-version = { "TAP version " ~ positiveInteger ~ newline }
-leading_plan = { plan ~ skip_directive? ~ newline }
-trailing_plan = { plan ~ newline }
+version = { "TAP version " ~ positiveInteger ~ NEWLINE }
+leading_plan = { plan ~ skip_directive? ~ NEWLINE }
+trailing_plan = { plan ~ NEWLINE }
 plan = { "1.." ~ positiveInteger }
 lines = { line+ }
-line = { comment | test | unknown | bailout ~ newline }
+line = { comment | test | unknown | bailout ~ NEWLINE }
 test = { status ~ positiveInteger? ~ description? ~ directive? }
 status = { "not "? ~ "ok " }
 description = { !"#" ~ non_newline ~ (!"#" ~ non_newline)+? }
 directive = _{ todo_directive | skip_directive }
-todo_directive = { hash ~ "TODO" ~ " " ~ (non_newline+)? }
-skip_directive = { hash ~ "SKIP" ~ " " ~ (non_newline+)? }
-comment = { hash ~ (non_newline+)? }
+todo_directive = { hash ~ "TODO" ~ " " ~ text_output? }
+skip_directive = { hash ~ "SKIP" ~ " " ~ text_output? }
+comment = { hash ~ text_output? }
 hash = { "#" ~ " "? }
-bailout = { "Bail out!" ~ (non_newline+)? }
-unknown = { non_newline+ ~ newline }
-non_newline = { !newline ~ ANY }
+bailout = { "Bail out!" ~ text_output? }
+unknown = { text_output ~ NEWLINE }
+non_newline = _{ (!NEWLINE ~ ANY) }
+text_output = { (!NEWLINE ~ ANY)+ }
 positiveInteger = { ASCII_NONZERO_DIGIT ~ (ASCII_DIGIT+)? }
 
 // https://github.com/Perl-Toolchain-Gang/Test-Harness/blob/94e8ba4c942a0f4e4eb0a483a8a8c3ee9bd9ff61/lib/TAP/Parser/Grammar.pm#L499

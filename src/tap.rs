@@ -20,6 +20,39 @@ mod tests {
     //         println!("{:#?}", out);
     //     }
 
+//     #[test]
+//     fn test_lines() {
+
+//         let lines = r#"ok 2 some text goes here #TODO finish
+// some unknown for you
+// Bailout! stuff
+// ok 3"#;
+
+//         parses_to! {
+//             parser: TapParser,
+//             input: lines,
+//             rule: Rule::lines,
+//             tokens: [
+//                 lines(0,78,[
+//                     test(0,37,[
+//                         status(0,3),
+//                         positiveInteger(3,4),
+//                         desc_text(4,25),
+//                         todo_directive(25,37,[
+//                             text_output(31,37)
+//                         ])
+//                     ]),
+//                     unknown(37,58),
+//                     bailout(59,73),
+//                     test(74,78,[
+//                         status(74,76),
+//                         positiveInteger(76,78)
+//                     ])
+//                 ])
+//             ]
+//         };
+//     }
+
     #[test]
     fn test_tap_test() {
         parses_to! {
@@ -206,7 +239,9 @@ mod tests {
             input: "# ",
             rule: Rule::comment,
             tokens: [
-                comment(0,2)
+                comment(0,2,[
+                    text_output(1,2)
+                ])
             ]
         };
 
@@ -216,7 +251,7 @@ mod tests {
             rule: Rule::comment,
             tokens: [
                 comment(0,21,[
-                    text_output(2,21)
+                    text_output(1,21)
                 ])
             ]
         };
@@ -260,12 +295,10 @@ mod tests {
     fn test_tap_unknown() {
         parses_to! {
             parser: TapParser,
-            input: "some any\n",
+            input: "some any",
             rule: Rule::unknown,
             tokens: [
-                unknown(0, 9, [
-                    text_output(0, 8)
-                ])
+                unknown(0, 8)
             ]
         };
     }

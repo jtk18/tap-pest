@@ -1,5 +1,3 @@
-use pest::Parser;
-
 #[derive(Parser, Debug)]
 #[grammar = "tap.pest"]
 pub struct TapParser;
@@ -23,6 +21,26 @@ mod tests {
 //         println!("{:#?}", out);
 //     }
 
+    #[test]
+    fn test_tap_positive_integer() {
+        parses_to! {
+            parser: TapParser,
+            input: "4",
+            rule: Rule::positiveInteger,
+            tokens: [
+                positiveInteger(0, 1)
+            ]
+        };
+
+        parses_to! {
+            parser: TapParser,
+            input: "120",
+            rule: Rule::positiveInteger,
+            tokens: [
+                positiveInteger(0, 3)
+            ]
+        };
+    }
 
     #[test]
     fn test_tap_plan() {

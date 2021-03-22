@@ -22,6 +22,36 @@ mod tests {
 //     }
 
     #[test]
+    fn test_tap_non_newline() {
+        parses_to! {
+            parser: TapParser,
+            input: "4",
+            rule: Rule::non_newline,
+            tokens: [
+                non_newline(0, 1)
+            ]
+        };
+
+        parses_to! {
+            parser: TapParser,
+            input: "{",
+            rule: Rule::non_newline,
+            tokens: [
+                non_newline(0, 1)
+            ]
+        };
+
+        fails_with! {
+            parser: TapParser,
+            input: "\n",
+            rule: Rule::non_newline,
+            positives: vec![Rule::non_newline],
+            negatives: vec![],
+            pos: 0
+        };
+    }
+
+    #[test]
     fn test_tap_positive_integer() {
         parses_to! {
             parser: TapParser,

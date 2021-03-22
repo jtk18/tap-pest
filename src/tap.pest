@@ -1,0 +1,47 @@
+
+newline    = _{ "\n" }
+tap = { ( version? ~ comment | unknown ~ leading_plan ~ lines ) | lines ~ trailing_plan ~ comment? }
+version = { "TAP version " ~ positiveInteger ~ newline }
+leading_plan = { plan ~ skip_directive? ~ newline }
+trailing_plan = { plan ~ newline }
+plan = { "1.." ~ positiveInteger }
+lines = { line+ }
+line = { comment | test | unknown | bailout ~ newline }
+test = { status ~ positiveInteger? ~ description? ~ directive? }
+status = { "not "? ~ "ok " }
+description = { !"#" ~ non_newline ~ (!"#" ~ non_newline)+? }
+directive = _{ todo_directive | skip_directive }
+todo_directive = { hash ~ "TODO" ~ " " ~ (non_newline+)? }
+skip_directive = { hash ~ "SKIP" ~ " " ~ (non_newline+)? }
+comment = { hash ~ (non_newline+)? }
+hash = { "#" ~ " "? }
+bailout = { "Bail out!" ~ (non_newline+)? }
+unknown = { non_newline+ ~ newline }
+non_newline = { !newline ~ ANY }
+positiveInteger = { ASCII_NONZERO_DIGIT ~ (ASCII_DIGIT+)? }
+
+// https://github.com/Perl-Toolchain-Gang/Test-Harness/blob/94e8ba4c942a0f4e4eb0a483a8a8c3ee9bd9ff61/lib/TAP/Parser/Grammar.pm#L499
+// tap            ::= version? { comment | unknown } leading_plan lines
+//                    |
+//                    lines trailing_plan {comment}
+// version        ::= 'TAP version ' positiveInteger {positiveInteger} "\n"
+// leading_plan   ::= plan skip_directive? "\n"
+// trailing_plan  ::= plan "\n"
+// plan           ::= '1..' nonNegativeInteger
+// lines          ::= line {line}
+// line           ::= (comment | test | unknown | bailout ) "\n"
+// test           ::= status positiveInteger? description? directive?
+// status         ::= 'not '? 'ok '
+// description    ::= (character - (digit | '#')) {character - '#'}
+// directive      ::= todo_directive | skip_directive
+// todo_directive ::= hash_mark 'TODO' ' ' {character}
+// skip_directive ::= hash_mark 'SKIP' ' ' {character}
+// comment        ::= hash_mark {character}
+// hash_mark      ::= '#' {' '}
+// bailout        ::= 'Bail out!' {character}
+// unknown        ::= { (character - "\n") }
+//  (* POSIX character classes and other terminals *)
+//  digit              ::= [:digit:]
+//  character          ::= ([:print:] - "\n")
+//  positiveInteger    ::= ( digit - '0' ) {digit}
+//  nonNegativeInteger ::= digit {digit}

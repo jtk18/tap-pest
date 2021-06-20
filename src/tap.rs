@@ -239,9 +239,7 @@ mod tests {
             input: "# ",
             rule: Rule::comment,
             tokens: [
-                comment(0,2,[
-                    text_output(1,2)
-                ])
+                comment(0,2)
             ]
         };
 
@@ -251,7 +249,7 @@ mod tests {
             rule: Rule::comment,
             tokens: [
                 comment(0,21,[
-                    text_output(1,21)
+                    text_output(2,21)
                 ])
             ]
         };
@@ -270,6 +268,17 @@ mod tests {
 
     #[test]
     fn test_tap_bailout() {
+        parses_to! {
+            parser: TapParser,
+            input: "Bail out! stuff",
+            rule: Rule::bailout,
+            tokens: [
+                bailout(0, 15, [
+                    text_output(9, 15)
+                ])
+            ]
+        };
+
         parses_to! {
             parser: TapParser,
             input: "Bail out! HERE IS WHY!",

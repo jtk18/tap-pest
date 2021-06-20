@@ -5,7 +5,7 @@ pub struct TapParser;
 #[cfg(test)]
 mod tests {
     use super::*;
-    use pest::{consumes_to, fails_with, parses_to};
+    use pest::{consumes_to, fails_with, parses_to, Parser};
 
     //     #[test]
     //     fn test_tap_from_website() {
@@ -20,38 +20,41 @@ mod tests {
     //         println!("{:#?}", out);
     //     }
 
-    //     #[test]
-    //     fn test_lines() {
+        #[test]
+        fn test_lines() {
 
-    //         let lines = r#"ok 2 some text goes here #TODO finish
-    // some unknown for you
-    // Bailout! stuff
-    // ok 3"#;
+            let lines = r#"ok 2 some text goes here #TODO finish
+some unknown for you
+Bail out! stuff
+ok 3
+"#;
 
-    //         parses_to! {
-    //             parser: TapParser,
-    //             input: lines,
-    //             rule: Rule::lines,
-    //             tokens: [
-    //                 lines(0,78,[
-    //                     test(0,37,[
-    //                         status(0,3),
-    //                         positiveInteger(3,4),
-    //                         desc_text(4,25),
-    //                         todo_directive(25,37,[
-    //                             text_output(31,37)
-    //                         ])
-    //                     ]),
-    //                     unknown(37,58),
-    //                     bailout(59,73),
-    //                     test(74,78,[
-    //                         status(74,76),
-    //                         positiveInteger(76,78)
-    //                     ])
-    //                 ])
-    //             ]
-    //         };
-    //     }
+            parses_to! {
+                parser: TapParser,
+                input: lines,
+                rule: Rule::lines,
+                tokens: [
+                    lines(0,80,[
+                        test(0,37,[
+                            status(0,3),
+                            positiveInteger(3,4),
+                            desc_text(4,25),
+                            todo_directive(25,37,[
+                                text_output(31,37)
+                            ])
+                        ]),
+                        unknown(38,58),
+                        bailout(59,74,[
+                            text_output(68,74)
+                        ]),
+                        test(75,79,[
+                            status(75,78),
+                            positiveInteger(78,79)
+                        ])
+                    ])
+                ]
+            };
+        }
 
     #[test]
     fn test_tap_test() {

@@ -10,7 +10,7 @@ mod tests {
     #[test]
     fn test_examples_from_TAP_website() {
         // examples from https://testanything.org/tap-specification.html
-let example1 = r#"1..6
+        let example1 = r#"1..6
 #
 # Create a new Board and Tile, then place
 # the Tile onto the board.

@@ -7,18 +7,75 @@ mod tests {
     use super::*;
     use pest::{consumes_to, fails_with, parses_to, Parser};
 
-    //     #[test]
-    //     fn test_tap_from_website() {
-    //         let tap = r#"1..4
-    // ok 1 - Input file opened
-    // not ok 2 - First line of the input valid
-    // ok 3 - Read the rest of the file
-    // not ok 4 - Summarized correctly # TODO Not written yet"#;
+    #[test]
+    fn test_examples_from_TAP_website() {
+        // examples from https://testanything.org/tap-specification.html
+let example1 = r#"1..6
+#
+# Create a new Board and Tile, then place
+# the Tile onto the board.
+#
+ok 1 - The object isa Board
+ok 2 - Board size is zero
+ok 3 - The object isa Tile
+ok 4 - Get possible places to put the Tile
+ok 5 - Placing the tile produces no error
+ok 6 - Board size is 1
+"#;
 
-    //         let out = TapParser::parse(Rule::tap, tap);
-
-    //         println!("{:#?}", out);
-    //     }
+        parses_to! {
+            parser: TapParser,
+            input: example1,
+            rule: Rule::tap,
+            tokens: [
+                tap(0,267,[
+                    plan(0,4,[
+                        positiveInteger(3,4)
+                    ]),
+                    lines(5, 267,[
+                        comment(5,6),
+                        comment(7, 48, [
+                            text_output(9,48)
+                        ]),
+                        comment(49,75,[
+                            text_output(51,75)
+                        ]),
+                        comment(76,77),
+                        test(78,105,[
+                            status(78,81),
+                            positiveInteger(81,82),
+                            desc_text(82,105)
+                        ]),
+                        test(106,131,[
+                            status(106,109),
+                            positiveInteger(109,110),
+                            desc_text(110,131)
+                        ]),
+                        test(132,158,[
+                            status(132, 135),
+                            positiveInteger(135,136),
+                            desc_text(136,158)
+                        ]),
+                        test(159,201,[
+                            status(159,162),
+                            positiveInteger(162,163),
+                            desc_text(163,201)
+                        ]),
+                        test(202,243,[
+                            status(202, 205),
+                            positiveInteger(205,206),
+                            desc_text(206,243),
+                        ]),
+                        test(244,266,[
+                            status(244,247),
+                            positiveInteger(247,248),
+                            desc_text(248,266)
+                        ]),
+                    ]),
+                ])
+            ]
+        };
+    }
 
     #[test]
     fn test_lines() {

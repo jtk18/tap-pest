@@ -85,58 +85,56 @@ ok 7 - pinged gold
 1..7
 "#;
 
-parses_to! {
-    parser: TapParser,
-    input: example2,
-    rule: Rule::tap,
-    tokens: [
-        tap(0,204,[
-            test(0,43,[
-                status(0,3),
-                positiveInteger(3,4),
-                desc_text(4,43)
-            ]),
-            comment(44,68,[
-                text_output(46,68)
-            ]),
-            test(69,90,[
-                status(69,72),
-                positiveInteger(72,73),
-                desc_text(73,90)
-            ]),
-            test(91,109,[
-                status(91, 94),
-                positiveInteger(94,95),
-                desc_text(95,109)
-            ]),
-            test(110,135,[
-                status(110,117),
-                positiveInteger(117,118),
-                desc_text(118,135)
-            ]),
-            test(136,154,[
-                status(136, 139),
-                positiveInteger(139,140),
-                desc_text(140,154),
-            ]),
-            test(155,179,[
-                status(155,162),
-                positiveInteger(162,163),
-                desc_text(163,179)
-            ]),
-            test(180,198, [
-                status(180,183),
-                positiveInteger(183,184),
-                desc_text(184,198)
-            ]),
-            plan(199,203,[
-                positiveInteger(202,203)
-            ])
-        ])
-    ]
-};
-
-
+        parses_to! {
+            parser: TapParser,
+            input: example2,
+            rule: Rule::tap,
+            tokens: [
+                tap(0,204,[
+                    test(0,43,[
+                        status(0,3),
+                        positiveInteger(3,4),
+                        desc_text(4,43)
+                    ]),
+                    comment(44,68,[
+                        text_output(46,68)
+                    ]),
+                    test(69,90,[
+                        status(69,72),
+                        positiveInteger(72,73),
+                        desc_text(73,90)
+                    ]),
+                    test(91,109,[
+                        status(91, 94),
+                        positiveInteger(94,95),
+                        desc_text(95,109)
+                    ]),
+                    test(110,135,[
+                        status(110,117),
+                        positiveInteger(117,118),
+                        desc_text(118,135)
+                    ]),
+                    test(136,154,[
+                        status(136, 139),
+                        positiveInteger(139,140),
+                        desc_text(140,154),
+                    ]),
+                    test(155,179,[
+                        status(155,162),
+                        positiveInteger(162,163),
+                        desc_text(163,179)
+                    ]),
+                    test(180,198, [
+                        status(180,183),
+                        positiveInteger(183,184),
+                        desc_text(184,198)
+                    ]),
+                    plan(199,203,[
+                        positiveInteger(202,203)
+                    ])
+                ])
+            ]
+        };
     }
 
     #[test]

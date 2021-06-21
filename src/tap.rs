@@ -32,45 +32,43 @@ ok 6 - Board size is 1
                     plan(0,4,[
                         positiveInteger(3,4)
                     ]),
-                    lines(5, 267,[
-                        comment(5,6),
-                        comment(7, 48, [
-                            text_output(9,48)
-                        ]),
-                        comment(49,75,[
-                            text_output(51,75)
-                        ]),
-                        comment(76,77),
-                        test(78,105,[
-                            status(78,81),
-                            positiveInteger(81,82),
-                            desc_text(82,105)
-                        ]),
-                        test(106,131,[
-                            status(106,109),
-                            positiveInteger(109,110),
-                            desc_text(110,131)
-                        ]),
-                        test(132,158,[
-                            status(132, 135),
-                            positiveInteger(135,136),
-                            desc_text(136,158)
-                        ]),
-                        test(159,201,[
-                            status(159,162),
-                            positiveInteger(162,163),
-                            desc_text(163,201)
-                        ]),
-                        test(202,243,[
-                            status(202, 205),
-                            positiveInteger(205,206),
-                            desc_text(206,243),
-                        ]),
-                        test(244,266,[
-                            status(244,247),
-                            positiveInteger(247,248),
-                            desc_text(248,266)
-                        ]),
+                    comment(5,6),
+                    comment(7, 48, [
+                        text_output(9,48)
+                    ]),
+                    comment(49,75,[
+                        text_output(51,75)
+                    ]),
+                    comment(76,77),
+                    test(78,105,[
+                        status(78,81),
+                        positiveInteger(81,82),
+                        desc_text(82,105)
+                    ]),
+                    test(106,131,[
+                        status(106,109),
+                        positiveInteger(109,110),
+                        desc_text(110,131)
+                    ]),
+                    test(132,158,[
+                        status(132, 135),
+                        positiveInteger(135,136),
+                        desc_text(136,158)
+                    ]),
+                    test(159,201,[
+                        status(159,162),
+                        positiveInteger(162,163),
+                        desc_text(163,201)
+                    ]),
+                    test(202,243,[
+                        status(202, 205),
+                        positiveInteger(205,206),
+                        desc_text(206,243),
+                    ]),
+                    test(244,266,[
+                        status(244,247),
+                        positiveInteger(247,248),
+                        desc_text(248,266)
                     ]),
                 ])
             ]
@@ -90,23 +88,21 @@ ok 3
             input: lines,
             rule: Rule::lines,
             tokens: [
-                lines(0,80,[
-                    test(0,37,[
-                        status(0,3),
-                        positiveInteger(3,4),
-                        desc_text(4,25),
-                        todo_directive(25,37,[
-                            text_output(31,37)
-                        ])
-                    ]),
-                    unknown(38,58),
-                    bailout(59,74,[
-                        text_output(68,74)
-                    ]),
-                    test(75,79,[
-                        status(75,78),
-                        positiveInteger(78,79)
+                test(0,37,[
+                    status(0,3),
+                    positiveInteger(3,4),
+                    desc_text(4,25),
+                    todo_directive(25,37,[
+                        text_output(31,37)
                     ])
+                ]),
+                unknown(38,58),
+                bailout(59,74,[
+                    text_output(68,74)
+                ]),
+                test(75,79,[
+                    status(75,78),
+                    positiveInteger(78,79)
                 ])
             ]
         };

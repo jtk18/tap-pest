@@ -160,7 +160,7 @@ ok 3
                 ]),
                 unknown(38,58),
                 bailout(59,74,[
-                    text_output(68,74)
+                    text_output(69,74)
                 ]),
                 test(75,79,[
                     status(75,78),
@@ -391,7 +391,7 @@ ok 3
             rule: Rule::bailout,
             tokens: [
                 bailout(0, 15, [
-                    text_output(9, 15)
+                    text_output(10, 15)
                 ])
             ]
         };
@@ -402,7 +402,7 @@ ok 3
             rule: Rule::bailout,
             tokens: [
                 bailout(0, 22, [
-                    text_output(9, 22)
+                    text_output(10, 22)
                 ])
             ]
         };

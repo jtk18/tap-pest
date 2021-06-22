@@ -1,5 +1,4 @@
 
-newline    = _{ NEWLINE }
 tap = { ( version? ~ preplan_nontest_line* ~ leading_plan ~ lines ) | postplan_line+ ~ trailing_plan? ~ nontest_line* }
 version = { "TAP version " ~ positiveInteger ~ NEWLINE }
 leading_plan = _{ plan ~ skip_directive? ~ NEWLINE }
@@ -15,12 +14,12 @@ todo_directive = { hash ~ ^"TODO" ~ " " ~ text_output? }
 skip_directive = { hash ~ ^"SKIP" ~ " " ~ text_output? }
 nontest_line = _{ comment | unknown ~ NEWLINE }
 preplan_nontest_line = _{ comment | preplan_unknown ~ NEWLINE }
+preplan_unknown = { (!NEWLINE ~ !leading_plan ~ ANY)+ }
+postplan_unknown = { (!NEWLINE ~ !trailing_plan ~ ANY)+ }
 comment = { hash ~ text_output? }
 hash = _{ hash_char ~ " "? }
 bailout = { "Bail out!" ~ text_output? }
 unknown = { (!NEWLINE ~ ANY)+ }
-preplan_unknown = { (!NEWLINE ~ !leading_plan ~ ANY)+ }
-postplan_unknown = { (!NEWLINE ~ !trailing_plan ~ ANY)+ }
 text_output = { (!NEWLINE ~ ANY)+ }
 desc_text = { ( !NEWLINE ~ !hash_char ~ ANY)+ }
 hash_char = _{ "#" }

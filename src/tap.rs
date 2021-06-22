@@ -331,7 +331,7 @@ ok 3
             ]
         };
 
-        parses_to!{
+        parses_to! {
             parser: TapParser,
             input: "#todo lowercase",
             rule: Rule::todo_directive,

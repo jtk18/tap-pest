@@ -135,6 +135,32 @@ ok 7 - pinged gold
                 ])
             ]
         };
+
+        let example3 = r#"1..573
+not ok 1 - database handle
+Bail out! Couldn't connect to database.
+"#;
+
+        parses_to! {
+            parser: TapParser,
+            input: example3,
+            rule: Rule::tap,
+            tokens: [
+                tap(0,74,[
+                    plan(0,6,[
+                        positiveInteger(3,6)
+                    ]),
+                    test(7,33,[
+                        status(7,14),
+                        positiveInteger(14,15),
+                        desc_text(15,33)
+                    ]),
+                    bailout(34,73,[
+                        text_output(44,73)
+                    ])
+                ])
+            ]
+        };
     }
 
     #[test]

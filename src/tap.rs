@@ -331,6 +331,17 @@ ok 3
             ]
         };
 
+        parses_to!{
+            parser: TapParser,
+            input: "#todo lowercase",
+            rule: Rule::todo_directive,
+            tokens: [
+                todo_directive(0,15,[
+                    text_output(6,15)
+                ])
+            ]
+        };
+
         parses_to! {
             parser: TapParser,
             input: "# TODO with stuff after",
@@ -361,6 +372,17 @@ ok 3
             tokens: [
                 skip_directive(0,23,[
                     text_output(7,23)
+                ])
+            ]
+        };
+
+        parses_to! {
+            parser: TapParser,
+            input: "# skip lower case",
+            rule: Rule::skip_directive,
+            tokens: [
+                skip_directive(0,17,[
+                    text_output(7,17)
                 ])
             ]
         };

@@ -284,6 +284,112 @@ not ok 4 - infinite loop 2 # TODO halting problem unsolved
                 ])
             ]
         };
+
+        let example7 = r"ok - created Board
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+# +------+------+------+------+
+# |      |16G   |      |05C   |
+# |      |G N C |      |C C G |
+# |      |  G   |      |  C  +|
+# +------+------+------+------+
+# |10C   |01G   |      |03C   |
+# |R N G |G A G |      |C C C |
+# |  R   |  G   |      |  C  +|
+# +------+------+------+------+
+# |      |01G   |17C   |00C   |
+# |      |G A G |G N R |R N R |
+# |      |  G   |  R   |  G   |
+# +------+------+------+------+
+ok - board has 7 tiles + starter tile
+1..9
+";
+
+        parses_to! {
+            parser: TapParser,
+            input: example7,
+            rule: Rule::tap,
+            tokens: [
+                tap(0,499,[
+                    test(0,18,[
+                        status(0,3),
+                        desc_text(5,18)
+                    ]),
+                    test(19,21,[
+                        status(19,21)
+                    ]),
+                    test(22,24,[
+                        status(22,24)
+                    ]),
+                    test(25,27,[
+                        status(25,27)
+                    ]),
+                    test(28,30,[
+                        status(28,30)
+                    ]),
+                    test(31,33,[
+                        status(31,33)
+                    ]),
+                    test(34,36,[
+                        status(34,36)
+                    ]),
+                    test(37,39,[
+                        status(37,39)
+                    ]),
+                    comment(40,71,[
+                        text_output(42,71)
+                    ]),
+                    comment(72,103,[
+                        text_output(74,103)
+                    ]),
+                    comment(104,135,[
+                        text_output(106,135)
+                    ]),
+                    comment(136,167,[
+                        text_output(138,167)
+                    ]),
+                    comment(168,199,[
+                        text_output(170,199)
+                    ]),
+                    comment(200,231,[
+                        text_output(202,231)
+                    ]),
+                    comment(232,263,[
+                        text_output(234,263)
+                    ]),
+                    comment(264,295,[
+                        text_output(266,295)
+                    ]),
+                    comment(296,327,[
+                        text_output(298,327)
+                    ]),
+                    comment(328,359,[
+                        text_output(330,359)
+                    ]),
+                    comment(360,391,[
+                        text_output(362,391)
+                    ]),
+                    comment(392,423,[
+                        text_output(394,423)
+                    ]),
+                    comment(424,455,[
+                        text_output(426,455)
+                    ]),
+                    test(456,493,[
+                        status(456,459),
+                        desc_text(461,493)
+                    ]),
+                    plan(494,498,[
+                        nonNegativeInteger(497,498)
+                    ])
+                ])
+            ]
+        };
     }
 
     #[test]

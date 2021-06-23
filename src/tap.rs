@@ -161,6 +161,64 @@ Bail out! Couldn't connect to database.
                 ])
             ]
         };
+
+        let example4 = r#"1..5
+ok 1 - approved operating system
+# $^0 is solaris
+ok 2 - # SKIP no /sys directory
+ok 3 - # SKIP no /sys directory
+ok 4 - # SKIP no /sys directory
+ok 5 - # SKIP no /sys directory
+"#;
+
+        parses_to! {
+            parser: TapParser,
+            input: example4,
+            rule: Rule::tap,
+            tokens: [
+                tap(0,183,[
+                    plan(0,4,[
+                        positiveInteger(3,4)
+                    ]),
+                    test(5,37,[
+                        status(5,8),
+                        positiveInteger(8,9),
+                        desc_text(12,37)
+                    ]),
+                    comment(38,54,[
+                        text_output(40,54)
+                    ]),
+                    test(55,86,[
+                        status(55,58),
+                        positiveInteger(58,59),
+                        skip_directive(62,86,[
+                            text_output(69,86)
+                        ])
+                    ]),
+                    test(87,118,[
+                        status(87,90),
+                        positiveInteger(90,91),
+                        skip_directive(94,118,[
+                            text_output(101,118)
+                        ])
+                    ]),
+                    test(119,150,[
+                        status(119,122),
+                        positiveInteger(122,123),
+                        skip_directive(126,150,[
+                            text_output(133,150)
+                        ])
+                    ]),
+                    test(151,182,[
+                        status(151,154),
+                        positiveInteger(154,155),
+                        skip_directive(158,182,[
+                            text_output(165,182)
+                        ])
+                    ])
+                ])
+            ]
+        };
     }
 
     #[test]

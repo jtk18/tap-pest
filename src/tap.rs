@@ -238,6 +238,52 @@ ok 5 - # SKIP no /sys directory
                 ])
             ]
         };
+
+        let example6 = r"1..4
+ok 1 - Creating test program
+ok 2 - Test program runs, no error
+not ok 3 - infinite loop # TODO halting problem unsolved
+not ok 4 - infinite loop 2 # TODO halting problem unsolved
+";
+
+        parses_to! {
+            parser: TapParser,
+            input: example6,
+            rule: Rule::tap,
+            tokens: [
+                tap(0,185,[
+                    plan(0,4,[
+                        nonNegativeInteger(3,4)
+                    ]),
+                    test(5,33,[
+                        status(5,8),
+                        positiveInteger(8,9),
+                        desc_text(12,33)
+                    ]),
+                    test(34,68,[
+                        status(34,37),
+                        positiveInteger(37,38),
+                        desc_text(41,68)
+                    ]),
+                    test(69,125,[
+                        status(69,76),
+                        positiveInteger(76,77),
+                        desc_text(80,94),
+                        todo_directive(94,125,[
+                            text_output(101,125)
+                        ])
+                    ]),
+                    test(126,184,[
+                        status(126,133),
+                        positiveInteger(133,134),
+                        desc_text(137,153),
+                        todo_directive(153,184,[
+                            text_output(160,184)
+                        ])
+                    ])
+                ])
+            ]
+        };
     }
 
     #[test]

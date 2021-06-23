@@ -30,7 +30,7 @@ ok 6 - Board size is 1
             tokens: [
                 tap(0,267,[
                     plan(0,4,[
-                        positiveInteger(3,4)
+                        nonNegativeInteger(3,4)
                     ]),
                     comment(5,6),
                     comment(7, 48, [
@@ -130,7 +130,7 @@ ok 7 - pinged gold
                         desc_text(187,198)
                     ]),
                     plan(199,203,[
-                        positiveInteger(202,203)
+                        nonNegativeInteger(202,203)
                     ])
                 ])
             ]
@@ -148,7 +148,7 @@ Bail out! Couldn't connect to database.
             tokens: [
                 tap(0,74,[
                     plan(0,6,[
-                        positiveInteger(3,6)
+                        nonNegativeInteger(3,6)
                     ]),
                     test(7,33,[
                         status(7,14),
@@ -178,7 +178,7 @@ ok 5 - # SKIP no /sys directory
             tokens: [
                 tap(0,183,[
                     plan(0,4,[
-                        positiveInteger(3,4)
+                        nonNegativeInteger(3,4)
                     ]),
                     test(5,37,[
                         status(5,8),
@@ -215,6 +215,25 @@ ok 5 - # SKIP no /sys directory
                         skip_directive(158,182,[
                             text_output(165,182)
                         ])
+                    ])
+                ])
+            ]
+        };
+
+        let example5 = r"1..0 # skip because English-to-French translator isn't installed
+";
+
+        parses_to! {
+            parser: TapParser,
+            input: example5,
+            rule: Rule::tap,
+            tokens: [
+                tap(0,65,[
+                    plan(0,4,[
+                        nonNegativeInteger(3,4)
+                    ]),
+                    skip_directive(5,64,[
+                        text_output(12,64)
                     ])
                 ])
             ]
@@ -617,11 +636,22 @@ ok 3
     fn test_tap_plan() {
         parses_to! {
             parser: TapParser,
+            input: "1..0",
+            rule: Rule::plan,
+            tokens: [
+                plan(0, 4, [
+                    nonNegativeInteger(3, 4)
+                ])
+            ]
+        };
+
+        parses_to! {
+            parser: TapParser,
             input: "1..4",
             rule: Rule::plan,
             tokens: [
                 plan(0, 4, [
-                    positiveInteger(3, 4)
+                    nonNegativeInteger(3, 4)
                 ])
             ]
         };

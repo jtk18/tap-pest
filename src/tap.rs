@@ -43,32 +43,32 @@ ok 6 - Board size is 1
                     test(78,105,[
                         status(78,81),
                         positiveInteger(81,82),
-                        desc_text(82,105)
+                        desc_text(85,105)
                     ]),
                     test(106,131,[
                         status(106,109),
                         positiveInteger(109,110),
-                        desc_text(110,131)
+                        desc_text(113,131)
                     ]),
                     test(132,158,[
                         status(132, 135),
                         positiveInteger(135,136),
-                        desc_text(136,158)
+                        desc_text(139,158)
                     ]),
                     test(159,201,[
                         status(159,162),
                         positiveInteger(162,163),
-                        desc_text(163,201)
+                        desc_text(166,201)
                     ]),
                     test(202,243,[
                         status(202, 205),
                         positiveInteger(205,206),
-                        desc_text(206,243),
+                        desc_text(209,243),
                     ]),
                     test(244,266,[
                         status(244,247),
                         positiveInteger(247,248),
-                        desc_text(248,266)
+                        desc_text(251,266)
                     ]),
                 ])
             ]
@@ -94,7 +94,7 @@ ok 7 - pinged gold
                     test(0,43,[
                         status(0,3),
                         positiveInteger(3,4),
-                        desc_text(4,43)
+                        desc_text(7,43)
                     ]),
                     comment(44,68,[
                         text_output(46,68)
@@ -102,32 +102,32 @@ ok 7 - pinged gold
                     test(69,90,[
                         status(69,72),
                         positiveInteger(72,73),
-                        desc_text(73,90)
+                        desc_text(76,90)
                     ]),
                     test(91,109,[
                         status(91, 94),
                         positiveInteger(94,95),
-                        desc_text(95,109)
+                        desc_text(98,109)
                     ]),
                     test(110,135,[
                         status(110,117),
                         positiveInteger(117,118),
-                        desc_text(118,135)
+                        desc_text(121,135)
                     ]),
                     test(136,154,[
                         status(136, 139),
                         positiveInteger(139,140),
-                        desc_text(140,154),
+                        desc_text(143,154),
                     ]),
                     test(155,179,[
                         status(155,162),
                         positiveInteger(162,163),
-                        desc_text(163,179)
+                        desc_text(166,179)
                     ]),
                     test(180,198, [
                         status(180,183),
                         positiveInteger(183,184),
-                        desc_text(184,198)
+                        desc_text(187,198)
                     ]),
                     plan(199,203,[
                         positiveInteger(202,203)
@@ -153,7 +153,7 @@ Bail out! Couldn't connect to database.
                     test(7,33,[
                         status(7,14),
                         positiveInteger(14,15),
-                        desc_text(15,33)
+                        desc_text(18,33)
                     ]),
                     bailout(34,73,[
                         text_output(44,73)
@@ -179,7 +179,7 @@ ok 3
                 test(0,37,[
                     status(0,3),
                     positiveInteger(3,4),
-                    desc_text(4,25),
+                    desc_text(5,25),
                     todo_directive(25,37,[
                         text_output(31,37)
                     ])
@@ -229,7 +229,7 @@ ok 3
                 test(0,24,[
                     status(0,3),
                     positiveInteger(3,4),
-                    desc_text(4,24)
+                    desc_text(5,24)
                 ])
             ]
         };
@@ -242,7 +242,7 @@ ok 3
                 test(0,37,[
                     status(0,3),
                     positiveInteger(3,4),
-                    desc_text(4,25),
+                    desc_text(5,25),
                     todo_directive(25,37,[
                         text_output(31,37)
                     ])

@@ -25,6 +25,7 @@ hash_char = _{ "#" }
 positiveInteger = { ASCII_NONZERO_DIGIT ~ (ASCII_DIGIT+)? }
 nonNegativeInteger = { ASCII_DIGIT+ }
 
+// Adapted the above from the below + the TapParser tests over the examples from https://testanything.org/tap-specification.html
 // https://github.com/Perl-Toolchain-Gang/Test-Harness/blob/94e8ba4c942a0f4e4eb0a483a8a8c3ee9bd9ff61/lib/TAP/Parser/Grammar.pm#L499
 // tap            ::= version? { comment | unknown } leading_plan lines
 //                    |

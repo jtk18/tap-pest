@@ -1,4 +1,4 @@
-pub mod tap;
+pub mod tap_parser;
 
 extern crate pest;
 #[macro_use]

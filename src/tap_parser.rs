@@ -7,10 +7,8 @@ mod tests {
     use super::*;
     use pest::{consumes_to, fails_with, parses_to, Parser};
 
-    #[test]
-    fn test_examples_from_TAP_website() {
-        // examples from https://testanything.org/tap-specification.html
-        let example1 = r#"1..6
+    // examples from https://testanything.org/tap-specification.html
+    pub const EXAMPLE_TOP_PLAN_SUCCESS: &str = r#"1..6
 #
 # Create a new Board and Tile, then place
 # the Tile onto the board.
@@ -23,9 +21,72 @@ ok 5 - Placing the tile produces no error
 ok 6 - Board size is 1
 "#;
 
+    pub const EXAMPLE_TAIL_PLAN_FAIL: &str = r#"ok 1 - retrieving servers from the database
+# need to ping 6 servers
+ok 2 - pinged diamond
+ok 3 - pinged ruby
+not ok 4 - pinged saphire
+ok 5 - pinged onyx
+not ok 6 - pinged quartz
+ok 7 - pinged gold
+1..7
+"#;
+
+    pub const EXAMPLE_TOP_PLAN_BAILOUT: &str = r#"1..573
+not ok 1 - database handle
+Bail out! Couldn't connect to database.
+"#;
+
+    pub const EXAMPLE_TOP_PLAN_SKIP_SUCCESS: &str = r#"1..5
+ok 1 - approved operating system
+# $^0 is solaris
+ok 2 - # SKIP no /sys directory
+ok 3 - # SKIP no /sys directory
+ok 4 - # SKIP no /sys directory
+ok 5 - # SKIP no /sys directory
+"#;
+
+    pub const EXAMPLE_FULL_SKIP: &str = r"1..0 # skip because English-to-French translator isn't installed
+";
+
+    pub const EXAMPLE_TOP_PLAN_TODO_SUCCESS: &str = r"1..4
+ok 1 - Creating test program
+ok 2 - Test program runs, no error
+not ok 3 - infinite loop # TODO halting problem unsolved
+not ok 4 - infinite loop 2 # TODO halting problem unsolved
+";
+
+    pub const EXAMPLE_TAIL_PLAN_NO_DESC_TEST_SUCCESS: &str = r"ok - created Board
+ok
+ok
+ok
+ok
+ok
+ok
+ok
+# +------+------+------+------+
+# |      |16G   |      |05C   |
+# |      |G N C |      |C C G |
+# |      |  G   |      |  C  +|
+# +------+------+------+------+
+# |10C   |01G   |      |03C   |
+# |R N G |G A G |      |C C C |
+# |  R   |  G   |      |  C  +|
+# +------+------+------+------+
+# |      |01G   |17C   |00C   |
+# |      |G A G |G N R |R N R |
+# |      |  G   |  R   |  G   |
+# +------+------+------+------+
+ok - board has 7 tiles + starter tile
+1..9
+";
+
+    #[test]
+    fn test_examples_from_TAP_website() {
+
         parses_to! {
             parser: TapParser,
-            input: example1,
+            input: EXAMPLE_TOP_PLAN_SUCCESS,
             rule: Rule::tap,
             tokens: [
                 tap(0,267,[
@@ -74,20 +135,9 @@ ok 6 - Board size is 1
             ]
         };
 
-        let example2 = r#"ok 1 - retrieving servers from the database
-# need to ping 6 servers
-ok 2 - pinged diamond
-ok 3 - pinged ruby
-not ok 4 - pinged saphire
-ok 5 - pinged onyx
-not ok 6 - pinged quartz
-ok 7 - pinged gold
-1..7
-"#;
-
         parses_to! {
             parser: TapParser,
-            input: example2,
+            input: EXAMPLE_TAIL_PLAN_FAIL,
             rule: Rule::tap,
             tokens: [
                 tap(0,204,[
@@ -136,14 +186,9 @@ ok 7 - pinged gold
             ]
         };
 
-        let example3 = r#"1..573
-not ok 1 - database handle
-Bail out! Couldn't connect to database.
-"#;
-
         parses_to! {
             parser: TapParser,
-            input: example3,
+            input: EXAMPLE_TOP_PLAN_BAILOUT,
             rule: Rule::tap,
             tokens: [
                 tap(0,74,[
@@ -162,18 +207,9 @@ Bail out! Couldn't connect to database.
             ]
         };
 
-        let example4 = r#"1..5
-ok 1 - approved operating system
-# $^0 is solaris
-ok 2 - # SKIP no /sys directory
-ok 3 - # SKIP no /sys directory
-ok 4 - # SKIP no /sys directory
-ok 5 - # SKIP no /sys directory
-"#;
-
         parses_to! {
             parser: TapParser,
-            input: example4,
+            input: EXAMPLE_TOP_PLAN_SKIP_SUCCESS,
             rule: Rule::tap,
             tokens: [
                 tap(0,183,[
@@ -220,12 +256,9 @@ ok 5 - # SKIP no /sys directory
             ]
         };
 
-        let example5 = r"1..0 # skip because English-to-French translator isn't installed
-";
-
         parses_to! {
             parser: TapParser,
-            input: example5,
+            input: EXAMPLE_FULL_SKIP,
             rule: Rule::tap,
             tokens: [
                 tap(0,65,[
@@ -239,16 +272,9 @@ ok 5 - # SKIP no /sys directory
             ]
         };
 
-        let example6 = r"1..4
-ok 1 - Creating test program
-ok 2 - Test program runs, no error
-not ok 3 - infinite loop # TODO halting problem unsolved
-not ok 4 - infinite loop 2 # TODO halting problem unsolved
-";
-
         parses_to! {
             parser: TapParser,
-            input: example6,
+            input: EXAMPLE_TOP_PLAN_TODO_SUCCESS,
             rule: Rule::tap,
             tokens: [
                 tap(0,185,[
@@ -285,34 +311,9 @@ not ok 4 - infinite loop 2 # TODO halting problem unsolved
             ]
         };
 
-        let example7 = r"ok - created Board
-ok
-ok
-ok
-ok
-ok
-ok
-ok
-# +------+------+------+------+
-# |      |16G   |      |05C   |
-# |      |G N C |      |C C G |
-# |      |  G   |      |  C  +|
-# +------+------+------+------+
-# |10C   |01G   |      |03C   |
-# |R N G |G A G |      |C C C |
-# |  R   |  G   |      |  C  +|
-# +------+------+------+------+
-# |      |01G   |17C   |00C   |
-# |      |G A G |G N R |R N R |
-# |      |  G   |  R   |  G   |
-# +------+------+------+------+
-ok - board has 7 tiles + starter tile
-1..9
-";
-
         parses_to! {
             parser: TapParser,
-            input: example7,
+            input: EXAMPLE_TAIL_PLAN_NO_DESC_TEST_SUCCESS,
             rule: Rule::tap,
             tokens: [
                 tap(0,499,[

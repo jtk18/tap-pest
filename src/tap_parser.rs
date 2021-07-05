@@ -1,6 +1,6 @@
 #[derive(Parser, Debug)]
 #[grammar = "tap.pest"]
-pub struct TapParser;
+pub(crate) struct TapParser;
 
 #[cfg(test)]
 mod tests {

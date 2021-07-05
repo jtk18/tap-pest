@@ -1,5 +1,5 @@
 
-tap = { ( version? ~ preplan_nontest_line* ~ leading_plan ~ lines? ) | postplan_line+ ~ trailing_plan? ~ nontest_line* }
+tap = { ( version? ~ preplan_nontest_line* ~ leading_plan ~ lines? | postplan_line+ ~ trailing_plan? ~ nontest_line* ) }
 version = { "TAP version " ~ positiveInteger ~ NEWLINE }
 leading_plan = _{ plan ~ " "? ~ skip_directive? ~ NEWLINE }
 trailing_plan = _{ plan ~ NEWLINE }
@@ -22,7 +22,7 @@ unknown = { (!NEWLINE ~ ANY)+ }
 text_output = { (!NEWLINE ~ ANY)+ }
 desc_text = { ( !NEWLINE ~ !hash_char ~ ANY)+ }
 hash_char = _{ "#" }
-positiveInteger = { ASCII_NONZERO_DIGIT ~ (ASCII_DIGIT+)? }
+positiveInteger = { ASCII_NONZERO_DIGIT ~ ASCII_DIGIT* }
 nonNegativeInteger = { ASCII_DIGIT+ }
 
 // Adapted the above from the below + the TapParser tests over the examples from https://testanything.org/tap-specification.html

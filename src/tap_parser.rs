@@ -83,7 +83,6 @@ ok - board has 7 tiles + starter tile
 
     #[test]
     fn test_examples_from_TAP_website() {
-
         parses_to! {
             parser: TapParser,
             input: EXAMPLE_TOP_PLAN_SUCCESS,
